@@ -1,0 +1,18 @@
+PORTAINER — DEPLOY RÁPIDO
+
+1) Extraia o ZIP.
+2) Suba o conteúdo para um repositório Git (GitHub/GitLab/Gitea) OU coloque-o no host Docker.
+3) Portainer → Stacks → Add stack.
+4) Use o docker-compose.yml deste projeto.
+5) Defina POSTGRES_PASSWORD com uma senha forte.
+6) Deploy the stack.
+7) Acesse http://IP_DO_SERVIDOR:3000
+8) Abra Configurações e informe:
+   - Nome da loja
+   - Cidade
+   - Chave Pix
+
+ATENÇÃO:
+- Não publique a senha do PostgreSQL em repositório público.
+- O QR Pix é gerado, mas a confirmação automática depende de API/webhook de um banco/PSP.
+- Para uso comercial, adicione HTTPS, autenticação, backup e integração fiscal.

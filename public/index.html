@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDV Açougue</title>
+<meta name="theme-color" content="#121820">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">PDV · AÇOUGUE</div>
+      <h1 id="storeTitle">Açougue</h1>
+    </div>
+    <nav>
+      <button data-view="caixa" class="nav active">Caixa</button>
+      <button data-view="produtos" class="nav">Produtos</button>
+      <button data-view="historico" class="nav">Vendas</button>
+      <button data-view="config" class="nav">Configurações</button>
+    </nav>
+    <span id="health" class="status">● online</span>
+  </header>
+
+  <main>
+    <section id="view-caixa" class="view active">
+      <div class="layout">
+        <div>
+          <section class="card">
+            <div class="section-title"><span class="pulse"></span>Leitura de código de barras</div>
+            <form id="scanForm" class="scan">
+              <span class="arrow">›</span>
+              <input id="barcode" autocomplete="off" autofocus placeholder="Bipe ou digite o código">
+              <input id="qty" inputmode="decimal" placeholder="Peso / qtd" aria-label="Peso ou quantidade">
+              <button class="btn accent">Adicionar</button>
+            </form>
+            <div id="scanMessage" class="hint">Aguardando leitura</div>
+            <div id="quickProducts" class="quick"></div>
+          </section>
+
+          <section class="card table-card">
+            <div class="table-head"><span>Item</span><span>Qtd.</span><span>Unit.</span><span>Subtotal</span><span></span></div>
+            <div id="cart"></div>
+          </section>
+        </div>
+
+        <aside class="side">
+          <section class="total-card">
+            <div class="eyebrow">TOTAL DA VENDA</div>
+            <div id="total" class="total">R$ 0,00</div>
+            <div id="summary" class="muted">0 itens · 0,000 kg</div>
+          </section>
+          <section class="card">
+            <div class="eyebrow">FORMA DE PAGAMENTO</div>
+            <button id="payPix" class="pay pix" disabled>PIX <strong>R$ 0,00</strong></button>
+            <div class="pay-grid">
+              <button id="payCard" class="pay" disabled>Cartão</button>
+              <button id="payCash" class="pay" disabled>Dinheiro</button>
+            </div>
+          </section>
+          <section id="pixBox" class="card pix-box hidden">
+            <div class="pix-header"><strong>PIX</strong><span>Aguardando</span></div>
+            <img id="qr" alt="QR Code Pix" class="qr">
+            <div id="pixValue" class="pix-value">R$ 0,00</div>
+            <textarea id="pixPayload" readonly></textarea>
+            <div class="pay-grid">
+              <button id="copyPix" class="pay">Copiar Pix</button>
+              <button id="confirmPix" class="pay pix">Confirmar pagamento</button>
+            </div>
+            <p class="hint">O QR é um Pix Copia e Cola com valor fixo. A confirmação automática depende de integração com o banco/PSP e webhook.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section id="view-produtos" class="view">
+      <section class="card">
+        <div class="section-title">Cadastro de produtos</div>
+        <form id="productForm" class="product-form">
+          <input name="codigo_barras" placeholder="Código de barras" required>
+          <input name="nome" placeholder="Nome do produto" required>
+          <input name="categoria" placeholder="Categoria">
+          <input name="preco" inputmode="decimal" placeholder="Preço" required>
+          <select name="unidade"><option value="kg">kg</option><option value="un">un</option></select>
+          <button class="btn accent">Cadastrar</button>
+        </form>
+        <div id="productMsg" class="hint"></div>
+      </section>
+      <section class="card table-card">
+        <div class="toolbar"><strong>Produtos ativos</strong><input id="productSearch" placeholder="Pesquisar..."></div>
+        <div id="productsTable"></div>
+      </section>
+    </section>
+
+    <section id="view-historico" class="view">
+      <section class="card">
+        <div class="toolbar"><strong>Últimas vendas</strong><button id="refreshSales" class="btn">Atualizar</button></div>
+        <div id="salesTable"></div>
+      </section>
+    </section>
+
+    <section id="view-config" class="view">
+      <div class="layout config-grid">
+        <section class="card">
+          <div class="section-title">Dados da loja e Pix</div>
+          <form id="configForm" class="config-form">
+            <label>Nome da loja<input name="nome_loja" required></label>
+            <label>Cidade<input name="cidade" required></label>
+            <label class="full">Chave Pix<input name="chave_pix" placeholder="CPF, CNPJ, e-mail, telefone ou chave aleatória"></label>
+            <button class="btn accent">Salvar configuração</button>
+          </form>
+          <div id="configMsg" class="hint"></div>
+        </section>
+        <section class="card">
+          <div class="section-title">Resumo de hoje</div>
+          <div id="dashboard" class="metrics"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>
