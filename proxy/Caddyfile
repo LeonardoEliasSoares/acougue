@@ -1,0 +1,13 @@
+# Caddyfile - um bloco por cliente, apontando para o container "app" daquela stack
+
+cliente1.seusaas.com.br {
+    reverse_proxy acougue-pdv-cliente1:3000
+}
+
+cliente2.seusaas.com.br {
+    reverse_proxy acougue-pdv-cliente2:3000
+}
+
+# Para adicionar um cliente novo: sobe a stack dele (app + postgres, como no seu
+# docker-compose.yml original, trocando o container_name e a porta interna já
+# resolve via nome do serviço/rede) e adiciona um bloco aqui.
